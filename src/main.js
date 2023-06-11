@@ -2,14 +2,17 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import VueCookies from "vue-cookies";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
+Vue.use(VueCookies);
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
 
+import { state } from "./store.js"; 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
