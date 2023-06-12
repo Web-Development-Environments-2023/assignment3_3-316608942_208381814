@@ -42,7 +42,7 @@ export default {
         );
 
         // console.log(response);
-        const recipes = response.data.recipes;
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);

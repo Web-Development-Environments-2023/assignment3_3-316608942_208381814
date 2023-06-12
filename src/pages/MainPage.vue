@@ -1,9 +1,17 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
+    <b-form @submit.prevent="onMore"></b-form>
+    <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
+    <!-- {{ !$root.store.username }} -->
+    <b-button
+        type="submit"
+        variant="primary"
+        style="width:50px;display:block;"
+        class="mx-auto w-100"
+        >More</b-button
+      >
     <RecipePreviewList
       title="Last Viewed Recipes"
       :class="{
@@ -26,6 +34,35 @@ import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
     RecipePreviewList
+  },
+  methods: {
+    async moreRandom(){
+      try{
+        const response = await this.axios.get(
+          // "https://test-for-3-2.herokuapp.com/user/Login",
+          this.$root.store.server_domain +"/recipes/random",
+          //"http://localhost:3000/Login",
+          // "http://132.72.65.211:80/Login",
+          // "http://132.73.84.100:80/Login",
+
+        );
+        console.log(this.$root.store.login);
+        this.$root.store.login(this.form.username);
+        this.$router.push("/");
+      }catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
+    },
+    onMore() {
+      // console.log("login method called");
+      
+      this.form.submitError = undefined;
+      // console.log("login method go");
+
+      this.moreRandom();
+    }
+
   }
 };
 </script>
