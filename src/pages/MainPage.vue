@@ -1,82 +1,95 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <b-form @submit.prevent="onMore"></b-form>
-    <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    <!-- {{ !$root.store.username }} -->
-    <b-button
-        type="submit"
-        variant="primary"
-        style="width:50px;display:block;"
-        class="mx-auto w-100"
-        >More</b-button
-      >
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
+  <div id="main-container">
+    <!-- <h1 id="main-title" class="title">Welcome To The Main Page!</h1> -->
+    <div class="row vertical-align" style="flex-wrap:nowrap;">
+      <div class="col-xs-6 col-md-6">
+        <RecipePreviewList
+          title="Explore This Recipes"
+          class="RandomRecipes center"
+          state="random"
+        />
+        <b-button
+              type="submit"
+              variant="primary"
+              size="sm"
+              class="small-button"
+              @click="onMore"
+            >
+              More
+            </b-button>
+        <!-- <router-link v-if="!$root.store.username" to="/login" tag="button"
+      >You need to Login first!</router-link
+    > -->
+      </div>
+
+      <div class="col-xs-6 col-md-6">
+        <Login v-if="!$root.store.username" />
+
+        <!-- {{ !$root.store.username }} -->
+        <RecipePreviewList
+          v-else
+          title="Last Viewed Recipes"
+          state="lastWatched"
+          :class="{
+            RandomRecipes: true,
+            center: true,
+          }"
+        ></RecipePreviewList>
+      </div>
+      <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
       Centeredasdasdad
     </div>-->
+    </div>
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import Login from "../components/Login";
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+    Login,
+  },
+  data() {
+  return {
+    form: {
+      username: '',
+      submitError: undefined
+    }
+  };
   },
   methods: {
     async moreRandom(){
       try{
-        const response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/recipes/random",
-          //"http://localhost:3000/Login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
-
-        );
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username);
-        this.$router.push("/");
-      }catch (err) {
+        this.$router.go(0);
+      } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onMore() {
-      // console.log("login method called");
-      
       this.form.submitError = undefined;
-      // console.log("login method go");
-
       this.moreRandom();
+      }
     }
 
-  }
+  
 };
 </script>
 
 <style lang="scss" scoped>
+.small-button {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}
 .RandomRecipes {
-  margin: 10px 0 10px;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

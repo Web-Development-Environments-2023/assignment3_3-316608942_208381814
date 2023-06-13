@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkassignment_3_3"]=self["webpackChunkassignment_3_3"]||[]).push([[66],{3066:(e,t,s)=>{s.r(t),s.d(t,{default:()=>i});var n=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},a=[function(){var e=this,t=e.$createElement,s=e._self._c||t;return s("div",{staticClass:"container"},[s("h1",{staticClass:"title"},[e._v("Search Page")])])}],l=s(3736),c={},r=(0,l.Z)(c,n,a,!1,null,null,null);const i=r.exports}}]);
+//# sourceMappingURL=66.da9404c1.js.map

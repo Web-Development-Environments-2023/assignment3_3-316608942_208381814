@@ -56,11 +56,9 @@ export default {
       try {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/info",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
+          this.$root.store.server_domain + `/recipes/${this.$route.params.recipeId}`,
         );
+        console.log(response.data);
 
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -70,35 +68,36 @@ export default {
         return;
       }
 
-      let {
-        analyzedInstructions,
-        instructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
-      } = response.data.recipe;
+      // let {
+      //   analyzedInstructions,
+      //   instructions,
+      //   extendedIngredients,
+      //   aggregateLikes,
+      //   readyInMinutes,
+      //   image,
+      //   title
+      // } = response.data.recipe;
+      
 
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      // let _instructions = analyzedInstructions
+      //   .map((fstep) => {
+      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+      //     return fstep.steps;
+      //   })
+      //   .reduce((a, b) => [...a, ...b], []);
 
-      let _recipe = {
-        instructions,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
-      };
+      // let _recipe = {
+      //   instructions,
+      //   _instructions,
+      //   analyzedInstructions,
+      //   extendedIngredients,
+      //   aggregateLikes,
+      //   readyInMinutes,
+      //   image,
+      //   title
+      // };
 
-      this.recipe = _recipe;
+      this.recipe = response.data;
     } catch (error) {
       console.log(error);
     }
