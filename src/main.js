@@ -7,6 +7,7 @@ import VueCookies from "vue-cookies";
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueCookies);
+
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
@@ -42,6 +43,31 @@ import {
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
+// axios.interceptors.request.use(
+//   function(config) {
+//     try {
+//       // Retrieve data from local storage
+//       const data = localStorage.getItem(localStorage.key(0));
+//       if (data) {
+//         // Add the data to the request headers
+//         config.headers = {
+//           ...config.headers,
+//           "x-localstorage-data": data,
+//         };
+//       }
+//     } catch (error) {
+//       // Handle the error if any
+//       console.error("Error retrieving data from local storage:", error);
+//     }
+
+//     return config;
+//   },
+//   function(error) {
+//     // Do something with request error
+//     return Promise.reject(error);
+//   }
+// );
+
 axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
@@ -51,8 +77,19 @@ axios.interceptors.request.use(
     // Do something with request error
     return Promise.reject(error);
   }
-);
+); 
 
+// // Add a response interceptor
+// axios.interceptors.response.use(
+//   function(response) {
+//     // Do something with response data
+//     return response;
+//   },
+//   function(error) {
+//     // Do something with response error
+//     return Promise.reject(error);
+//   }
+// );
 // Add a response interceptor
 axios.interceptors.response.use(
   function(response) {
@@ -77,11 +114,16 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    VueCookies.set(this.username,this.username);
+    // console.log(VueCookies.get("session"));
+    // this.$cookies.set('session', user.user_id, '24h'); // Set the session cookie for 24 hours
   },
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    VueCookies.remove(this.username);
     this.username = undefined;
+    // this.$cookies.remove('session');
   },
 };
 console.log(shared_data);
