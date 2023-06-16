@@ -3,6 +3,12 @@
     <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
+      <router-link :to="{ name: 'favorite' }">Favorites</router-link>|
+      <router-link :to="{ name: 'PersonalRecipe' }">Personal Recipes</router-link>|
+      <div>
+      <b-button @click="modalShow = !modalShow" >Create Recipe</b-button>
+      <b-modal v-model="modalShow" hide-footer title="New Recipe"><CreateRecipe></CreateRecipe></b-modal>
+     </div>
       {{ !$root.store.username }}
       <span v-if="!$root.store.username">
         Guest:
@@ -18,8 +24,22 @@
 </template>
 
 <script>
+import { BButton, BModal, BFormCheckbox } from 'bootstrap-vue';
+import CreateRecipe from './components/CreateRecipe.vue';
 export default {
+  components: {
+    BButton,
+    BModal,
+    BFormCheckbox,
+    CreateRecipe
+},
   name: "App",
+  data() {
+    return {
+
+      modalShow: false,
+    };
+  },
   methods: {
     Logout() {
       this.$root.store.logout();

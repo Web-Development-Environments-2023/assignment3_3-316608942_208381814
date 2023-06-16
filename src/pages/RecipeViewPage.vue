@@ -124,7 +124,8 @@ export default {
             this.$root.store.server_domain + `/users/favorites`,
             {
               recipeId: this.recipe.id,
-            }
+            },
+            {withCredentials:true}
           );
           if (response.status !== 200) this.$router.replace("/NotFound");
         } catch (error) {

@@ -74,7 +74,31 @@ export default {
     //     return undefined;
     //   }
     // }
-  }
+  },
+  methods: {
+    async addToFavorite() {
+      try {
+        let response;
+        try {
+          let response = await this.axios.post(
+            this.$root.store.server_domain + `/users/favorites`,
+            {
+              recipeId: this.recipe.id,
+            },
+            {withCredentials:true}
+          );
+          if (response.status !== 200) this.$router.replace("/NotFound");
+        } catch (error) {
+          console.log("error.response.status", error.response.status);
+          this.$router.replace("/NotFound");
+          return;
+        }
+        this.recipe.isFavorite = true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 
