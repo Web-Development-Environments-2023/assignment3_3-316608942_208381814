@@ -1,22 +1,33 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
-      <router-link :to="{ name: 'favorite' }">Favorites</router-link>|
-      <router-link :to="{ name: 'PersonalRecipe' }">Personal Recipes</router-link>|
+      <router-link :to="{ name: 'main' }">Recipes </router-link>|
+      <router-link :to="{ name: 'search' }">Search </router-link>|
+      <router-link :to="{ name: 'about' }">About </router-link>|
+
+      <!-- {{ !$root.store.username }} -->
+      <span v-if="!$root.store.username">
+        Hello Guest:
+        <router-link :to="{ name: 'login' }">Login </router-link>|
+        <router-link :to="{ name: 'register' }">Register </router-link>|
+
+      </span>
+
+      <span v-else>
+        {{ $root.store.username }}: 
+        <b-dropdown text="Personal" variant="primary">
+          <template #button-content>
+            Personal <i class="fas fa-caret-down"></i>
+          </template>
+          <b-dropdown-item :to="{ name: 'favorite' }">Favorites</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'PersonalRecipe' }">Personal Recipes</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'family' }">Family Recipes</b-dropdown-item>
+        </b-dropdown>
+      <button @click="Logout">Logout </button>|
       <div>
       <b-button @click="modalShow = !modalShow" >Create Recipe</b-button>
       <b-modal v-model="modalShow" hide-footer title="New Recipe"><CreateRecipe></CreateRecipe></b-modal>
      </div>
-      {{ !$root.store.username }}
-      <span v-if="!$root.store.username">
-        Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
-      </span>
-      <span v-else>
-        {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
     </div>
     <router-view />

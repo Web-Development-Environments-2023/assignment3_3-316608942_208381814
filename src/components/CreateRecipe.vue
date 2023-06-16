@@ -73,17 +73,48 @@
             ></b-form-input>
           </b-form-group>
   
-          <b-form-group
-            label="Check relevant diet options"
-            v-slot="{ ariaDescribedby }"
-            >
-            <b-form-checkbox-group
-                v-model="selected"
-                :options="options"
-                :aria-describedby="ariaDescribedby"
-                name="flavour-1a"
-            ></b-form-checkbox-group>
-            </b-form-group>
+          <b-form-group 
+          id="input-group-vegan" 
+          label-cols-sm="3" 
+          label="Vegan:" 
+          label-for="vegan"
+          >
+            <b-form-select
+             id="vegan"
+              v-model="form.vegan" 
+              :options="[false, true]" 
+              >
+            </b-form-select>
+          </b-form-group>
+
+          <b-form-group 
+          id="input-group-vegetarian" 
+          label-cols-sm="3" 
+          label="Vegetarian:" 
+          label-for="vegetarian"
+          >
+            <b-form-select
+             id="vegetarian"
+              v-model="form.vegetarian" 
+              :options="[false, true]" 
+              >
+            </b-form-select>
+          </b-form-group>
+
+         <b-form-group 
+          id="input-group-glutenFree" 
+          label-cols-sm="3" 
+          label="Gluten Free:" 
+          label-for="glutenFree"
+          >
+            <b-form-select
+             id="glutenFree"
+              v-model="form.glutenFree" 
+              :options="[false, true]" 
+              >
+            </b-form-select>
+          </b-form-group>
+
           <IngredientEdit :data="form.ingredients" />
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
@@ -93,16 +124,11 @@
   </template>
 
   <script>
+  
   import IngredientEdit from "./IngredientEdit";
   export default {
     data() {
       return {
-        selected: [], // Must be an array reference!
-          options: [
-            { text: 'Vegan', value: 'vegan' },
-            { text: 'Vegetarian', value: 'vegetarian' },
-            { text: 'Gluten Free', value: 'gluten Free' },
-            ],
         form: {
           title: "",
           preperationTime: "",
@@ -111,6 +137,16 @@
           servings: "",
           checked: [],
           ingredients: [],
+          vegan: false,
+          vegetarian: false,
+          glutenFree: false,
+        //   selected: [], // Must be an array reference!
+        //   options: [
+        //     { text: 'Vegan', value: 'vegan' },
+        //     { text: 'Vegetarian', value: 'vegetarian' },
+        //     { text: 'Gluten Free', value: 'gluten Free' },
+        //     ],
+        // 
         },
         show: true
       };
@@ -140,9 +176,9 @@
               readyInMinutes: this.form.preperationTime,
               image: this.form.image,
               popularity: this.form.popularity,
-              vegan: this.form.checked.includes("vegan"),
-              vegetarian: this.form.checked.includes("vegetarian"),
-              glutenFree: this.form.checked.includes("glutenFree"),
+              vegan: this.form.checked.vegan,
+              vegetarian: this.form.vegetarian,
+              glutenFree: this.form.glutenFree,
               ingredients: this.form.ingredients,
               servings: Number(this.form.servings),
               instructions: this.form.instructions,
@@ -163,6 +199,9 @@
         this.form.servings = "";
         this.form.checked = [];
         this.form.ingredients = [];
+        this.form.checked.vegan=false;
+        this.form.vegetarian=false;
+        this.form.glutenFree=false;
   
         // // Trick to reset/clear native browser form validation state
         // this.show = false;

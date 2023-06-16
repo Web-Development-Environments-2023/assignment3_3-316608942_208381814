@@ -76,6 +76,18 @@ export default {
               // { withCredentials: true }
             );
             break;
+          case "search":
+            this.recipes.push(...this.recipesData);
+            return;
+            break;
+          case "FamilyRecipe":
+            response = await this.axios.get(
+              this.$root.store.server_domain + "/users/family",
+              { withCredentials: true }
+              // "https://test-for-3-2.herokuapp.com/recipes/random"
+              // { withCredentials: true }
+            );
+            break;
             default:
               return;
         }
