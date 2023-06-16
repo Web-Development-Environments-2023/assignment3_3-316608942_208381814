@@ -105,7 +105,7 @@
               password: this.form.password
             }
           );
-          // console.log(response);
+          console.log(response);
           // this.$root.loggedIn = true;
           console.log(this.$root.store.login);
           this.$root.store.login(this.form.username);

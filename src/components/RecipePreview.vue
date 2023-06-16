@@ -11,10 +11,25 @@
         {{ recipe.title }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+        <li>Ready in {{ recipe.readyInMinutes }} minutes</li>
+        <li>{{ recipe.popularity }} likes</li>
+        <li v-if="recipe.vegan">Vegan 🌿</li>
+        <li v-if="recipe.vegetarian">Vegetarian 🥕</li>
+        <li v-if="recipe.glutenFree">Gluten Free 🌾❌</li>
       </ul>
-    </div>
+      <b-button 
+              v-if="!recipe.isFavorite"
+              variant="outline-danger"
+              @click="addToFavorite"
+              >Add to Favorites ❤️</b-button>
+            <b-button v-else variant="outline-danger" disabled
+              >Favorite Recipe ❤️</b-button
+            >
+
+            <b-button v-if="recipe.isWatched" variant="outline-primary" disabled
+              >You've seen this recipe before 👁</b-button>
+          </div>
+ 
   </router-link>
 </template>
 

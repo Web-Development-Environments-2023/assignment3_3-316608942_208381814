@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
-
+// axios.defaults.withCredentials=true;
 import { state } from "./store.js"; 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
@@ -110,6 +110,7 @@ const shared_data = {
   username: localStorage.username,
   search_url_: localStorage.search_url,
   server_domain: "http://localhost:3000",
+  //server_domain: "http://127.0.0.1:3000",
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
