@@ -176,14 +176,15 @@
               readyInMinutes: this.form.preperationTime,
               image: this.form.image,
               popularity: this.form.popularity,
-              vegan: this.form.checked.vegan,
+              vegan: this.form.vegan,
               vegetarian: this.form.vegetarian,
               glutenFree: this.form.glutenFree,
               ingredients: this.form.ingredients,
               servings: Number(this.form.servings),
               instructions: this.form.instructions,
             },
-            { withCredentials: true }
+            { withCredentials: true,}
+
           );
           alert("thanks for adding new recipe to the website!");
         } catch (e) {

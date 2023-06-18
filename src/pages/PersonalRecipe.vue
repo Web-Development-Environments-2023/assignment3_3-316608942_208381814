@@ -29,4 +29,10 @@
   .container {
     max-width: 70%;
   }
+  body {
+  background-image: url('../assets/personal.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
   </style>
+

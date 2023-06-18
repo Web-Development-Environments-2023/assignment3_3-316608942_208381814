@@ -30,3 +30,11 @@
     max-width: 70%;
   }
   </style>
+
+<style>
+body {
+  background-image: url('../assets/family.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>

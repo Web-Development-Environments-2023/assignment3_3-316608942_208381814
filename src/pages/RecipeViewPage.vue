@@ -1,9 +1,10 @@
 <template>
   <div class="container">
+    <b-card class="form-box">
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <img style="height: 400px; width: 400px;" :src="recipe.image" class="center" />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -14,26 +15,31 @@
               @click="addToFavorite"
               >Add to Favorites ❤️</b-button
             >
-            <b-button v-else variant="outline-danger" disabled
-              >Favorite Recipe ❤️</b-button
-            >
+            <b-button v-else variant="outline-danger" style="font-size: 30px; width: 60%; border-width: 10px;" disabled>
+              Favorite Recipe ❤️
+            </b-button>
+            
             <br />
-            <b-button v-if="recipe.isWatched" variant="outline-primary" disabled
+            <b-button v-if="recipe.isWatched" variant="outline-primary" style="font-size: 30px; width: 60%; border-width: 10px;" disabled
               >You've seen this recipe before 👁</b-button
             >
           </div>
           <div class="wrapped">
             <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.popularity }} likes</div>
-              <div>Servings: for {{ recipe.servings }} people</div>
+              <div v-if="recipe.readyInMinutes">Ready in {{ recipe.readyInMinutes }} minutes</div>
+              <div v-if="recipe.popularity">Likes: {{ recipe.popularity }} likes</div>
+              <div v-if="recipe.servings">Servings: for {{ recipe.servings }} people</div>
               <div v-if="recipe.vegan">Vegan 🌿</div>
               <div v-if="recipe.vegetarian">Vegetarian 🥕</div>
               <div v-if="recipe.glutenFree">Gluten Free 🌾❌</div>
+              <div v-if="recipe.owner">Owner: {{ recipe.owner }} </div>
+              <div v-if="recipe.when">Occasion of making: {{ recipe.when }} </div>
+              
             </div>
             Ingredients:
             <ul>
-              <li v-for="(r, index) in recipe.extendedIngredients" :key="index">
+              <div v-if="recipe.ingredients">{{ recipe.ingredients }}</div>
+              <li v-for="(r) in recipe.extendedIngredients" >
                 {{ r.name }}: {{ r.amount }} {{ r.unit }}
               </li>
             </ul>
@@ -50,6 +56,7 @@
     </pre
       > -->
     </div>
+  </b-card>
   </div>
 </template>
 
@@ -69,9 +76,9 @@ export default {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + `/recipes/${this.$route.params.recipeId}`,
-          { withCredentials: true }
+          { withCredentials: true },
+          {recipeId: this.$route.params.recipeId},
         );
-        console.log(response.data);
 
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -155,7 +162,14 @@ export default {
   margin-right: auto;
   width: 50%;
 }
-/* .recipe-header{
-
-} */
+.form-box {
+  padding: 5px;
+  border-radius: 20px;
+  width: 1300px;
+  height: 2000px; /* Add a fixed height for all forms */
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+  text-align: center;
+}
 </style>

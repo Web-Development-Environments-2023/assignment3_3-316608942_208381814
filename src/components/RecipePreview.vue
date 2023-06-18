@@ -1,48 +1,53 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+  <b-card class="form-box">
+    <div class="recipe-preview">
+      <div class="recipe-body">
+        <!-- <img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
+           <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        class="recipe-preview"
+      >
+        <b-card-img :src="recipe.image" class="custom-image" />
+      </router-link>
       </div>
-      <ul class="recipe-overview">
-        <li>Ready in {{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-        <li v-if="recipe.vegan">Vegan 🌿</li>
-        <li v-if="recipe.vegetarian">Vegetarian 🥕</li>
-        <li v-if="recipe.glutenFree">Gluten Free 🌾❌</li>
-      </ul>
-      <b-button 
-              v-if="!recipe.isFavorite"
-              variant="outline-danger"
-              @click="addToFavorite"
-              >Add to Favorites ❤️</b-button>
-            <b-button v-else variant="outline-danger" disabled
-              >Favorite Recipe ❤️</b-button
-            >
-
-            <b-button v-if="recipe.isWatched" variant="outline-primary" disabled
-              >You've seen this recipe before 👁</b-button>
-          </div>
- 
-  </router-link>
+      <div class="recipe-details">
+        <div :title="recipe.title" style="font-size: 30px;" class="recipe-title">{{ recipe.title }}</div>
+        <ul class="recipe-overview" >
+          <li v-if="recipe.readyInMinutes">Ready in {{ recipe.readyInMinutes }} minutes</li>
+          <li v-if="recipe.popularity">{{ recipe.popularity }} likes</li>
+          <li v-if="recipe.vegan">Vegan 🌿</li>
+          <li v-if="recipe.vegetarian">Vegetarian 🥕</li>
+          <li v-if="recipe.glutenFree">Gluten Free 🌾❌</li>
+          <li v-if="recipe.owner">Owner: {{ recipe.owner }} </li>
+          <li v-if="recipe.when">Occasion of making: {{ recipe.when }} </li>
+        </ul>
+        <div class="recipe-buttons">
+          <b-button
+            v-if="!recipe.isFavorite"
+            variant="outline-danger"
+            @click="addToFavorite"
+          >
+            Add to Favorites ❤️
+          </b-button>
+          <b-button v-else variant="outline-danger" disabled>
+            Favorite Recipe ❤️
+          </b-button>
+          <b-button v-if="recipe.isWatched" variant="outline-primary" disabled>
+            You've seen this recipe before 👁
+          </b-button>
+        </div>
+      </div>
+    </div>
+  </b-card>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
+
+
   data() {
     return {
-      image_load: false
+
     };
   },
   props: {
@@ -50,30 +55,6 @@ export default {
       type: Object,
       required: true
     }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
   },
   methods: {
     async addToFavorite() {
@@ -104,77 +85,57 @@ export default {
 
 <style scoped>
 .recipe-preview {
-  display: inline-block;
-  width: 90%;
-  height: 100%;
-  position: relative;
-  margin: 10px 10px;
-}
-.recipe-preview > .recipe-body {
-  width: 100%;
-  height: 200px;
-  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: block;
-  width: 98%;
-  height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
+.recipe-body {
+  width: 300px; /* Increase the width of the recipe body */
+  height: 300px; /* Increase the height of the recipe body */
 }
 
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
+
+
+/* .recipe-details {
+  flex-grow: 1;
+  padding-left: 5px;
+  max-width: 200px; /* Add a max-width to prevent text overflow 
+} */
+
+.form-box {
+  padding: 5px;
+  color:black;
+  border-radius: 20px;
+  width: 60%;
+  height: 350px; /* Add a fixed height for all forms */
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+  text-align: center;
+}
+.custom-image {
+  width: 200px;
+  height: 250px;
 }
 
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
+/* .recipe-preview .recipe-footer .recipe-title {
+  padding: 5px 10px;
   width: 100%;
-  font-size: 12pt;
+  font-size: 9pt;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-}
+  color: #83c5be;
+} */
 
-.recipe-preview .recipe-footer ul.recipe-overview {
+/* .recipe-preview .recipe-footer ul.recipe-overview {
   padding: 5px 10px;
   width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
-  margin-bottom: 0px;
-}
+  flex-wrap: wrap;
+  justify-content: space-between;
+} */
 
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  width: 90px;
-  display: table-cell;
-  text-align: center;
-}
+
 </style>

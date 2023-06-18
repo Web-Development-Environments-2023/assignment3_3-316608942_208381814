@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
+ <div class="container">
     <h1 class="title">Register</h1>
-    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+    <div class="form-box">
+      <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
       <b-form-group
         id="input-group-username"
         label-cols-sm="3"
@@ -150,11 +151,13 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="reset" variant="danger" style="width:100px;"
+        class="ml-5 w-75"
+        >Reset</b-button>
       <b-button
         type="submit"
         variant="primary"
-        style="width:250px;"
+        style="width:100px;"
         class="ml-5 w-75"
         >Register</b-button
       >
@@ -162,7 +165,7 @@
         You have an account already?
         <router-link to="login"> Log in here</router-link>
       </div>
-    </b-form>
+
     <b-alert
       class="mt-2"
       v-if="form.submitError"
@@ -176,6 +179,8 @@
       <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
       <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
     </b-card> -->
+  </b-form>
+    </div>
   </div>
 </template>
 
@@ -302,8 +307,24 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+  
 }
+body {
+  background-image: url('../assets/register.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-box {
+  // border: 6px solid #ccc;
+  padding: 20px;
+  border-radius: 20px;
+  width: 100%;
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.5);}
 </style>
+

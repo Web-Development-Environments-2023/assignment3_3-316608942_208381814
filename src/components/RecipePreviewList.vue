@@ -46,11 +46,10 @@ export default {
         let response;
         switch (this._props.state) {
           case "random":
-            response = await this.axios.get(
-              this.$root.store.server_domain + "/recipes/random",
-              { withCredentials: true }
-              // "https://test-for-3-2.herokuapp.com/recipes/random"
-            );
+          response = await this.axios.get(
+             this.$root.store.server_domain + "/recipes/random",
+            { withCredentials: true }
+          );
             break;
           case "lastWatched":
             response = await this.axios.get(
@@ -91,7 +90,7 @@ export default {
             default:
               return;
         }
-
+        
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);

@@ -19,4 +19,10 @@ export default {
 .container {
   max-width: 400px;
 }
+
 </style>
+<style>body {
+  background-image: url('../assets/login.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}</style>

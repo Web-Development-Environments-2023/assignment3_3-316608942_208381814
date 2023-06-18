@@ -5,13 +5,14 @@
       <div class="col-xs-6 col-md-6">
         <RecipePreviewList
           title="Explore This Recipes"
-          class="RandomRecipes center"
           state="random"
+          style = "color: white;"
         />
         <b-button
               type="submit"
               variant="primary"
               size="sm"
+              style="color: indianred;border-color: indianred;background-color: burlywood;"
               class="small-button"
               @click="onMore"
             >
@@ -29,11 +30,9 @@
         <RecipePreviewList
           v-else
           title="Last Viewed Recipes"
+          style = "color: white;"
           state="lastWatched"
-          :class="{
-            RandomRecipes: true,
-            center: true,
-          }"
+
         ></RecipePreviewList>
       </div>
       <!-- <div
@@ -86,10 +85,15 @@ export default {
   display: block;
   margin: 0 auto;
 }
-.RandomRecipes {
-  margin: 10px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+body {
+  background-image: url('../assets/main.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;}
+// .RandomRecipes {
+//   margin: 10px 0;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
 </style>
+
