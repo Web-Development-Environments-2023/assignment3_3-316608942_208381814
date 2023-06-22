@@ -105,5 +105,3 @@
     background-size: cover;
   }
   </style>
-  <style></style>
- 

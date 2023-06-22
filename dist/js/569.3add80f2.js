@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkassignment_3_3"]=self["webpackChunkassignment_3_3"]||[]).push([[569],{1569:(n,e,t)=>{t.r(e),t.d(e,{default:()=>l});var s=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"container"},[t("Login")],1)},a=[],c=t(3370);const i={name:"LoginPage",components:{Login:c.Z},data:function(){return{}}},r=i;var o=t(3736),u=(0,o.Z)(r,s,a,!1,null,"b4263838",null);const l=u.exports}}]);
-//# sourceMappingURL=569.3add80f2.js.map
