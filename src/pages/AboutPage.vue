@@ -2,8 +2,9 @@
   <div class="about-page">
     <div class="about-content">
       <div class="form-box">
-        <b-form>
-          <h1>About HeavenlyCuisine Recipes</h1>
+        <b-card style="background-color: rgba(255, 255, 255, 0.5);">
+          <b-card-header style="font-size: 40px;">About HeavenlyCuisine Recipes</b-card-header>
+          <b-card-body>
           <p>Welcome to HeavenlyCuisine Recipes, your ultimate destination for discovering and sharing delicious recipes!</p>
           <p>At HeavenlyCuisine Recipes, we offer a wide range of recipes to cater to different tastes, preferences, and dietary needs.</p>
 
@@ -28,7 +29,8 @@
           <a href="https://virtserver.swaggerhub.com/LUZONE/Project/1.0.0">Swagger Recipe API</a>
           <br>
           <a href="https://github.com/Web-Development-Environments-2023/assignment3_2-316608942_208381814">Github Link to server side Project</a>
-        </b-form>
+        </b-card-body>
+        </b-card>
       </div>
     </div>
   </div>
@@ -40,7 +42,6 @@
     display: flex;
     align-items: left;
     justify-content: left;
-    height: 100vh;
 
   }
 
@@ -48,14 +49,11 @@
     padding: 20px;
     border-radius: 20px;
     width: 100%;
-    font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.5);}
+    font-size: 20px;}
   
   .about-content {
-    max-width: 3200px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
   
   h1 {

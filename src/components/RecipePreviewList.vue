@@ -55,24 +55,18 @@ export default {
             response = await this.axios.get(
               this.$root.store.server_domain + "/users/getlastWatches",
               { withCredentials: true }
-              // "https://test-for-3-2.herokuapp.com/recipes/random"
-              // { withCredentials: true }
             );
             break;
           case "favorite":
             response = await this.axios.get(
               this.$root.store.server_domain + "/users/favorites",
               { withCredentials: true }
-              // "https://test-for-3-2.herokuapp.com/recipes/random"
-              // { withCredentials: true }
             );
             break;
           case "PersonalRecipe":
             response = await this.axios.get(
               this.$root.store.server_domain + "/users/myRecipes",
               { withCredentials: true }
-              // "https://test-for-3-2.herokuapp.com/recipes/random"
-              // { withCredentials: true }
             );
             break;
           case "search":
@@ -83,8 +77,6 @@ export default {
             response = await this.axios.get(
               this.$root.store.server_domain + "/users/family",
               { withCredentials: true }
-              // "https://test-for-3-2.herokuapp.com/recipes/random"
-              // { withCredentials: true }
             );
             break;
             default:
@@ -94,7 +86,6 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

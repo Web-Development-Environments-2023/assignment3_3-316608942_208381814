@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <b-card class="form-box">
+    <b-card class="form-box" style="color: black; ">
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img style="height: 400px; width: 400px;" :src="recipe.image" class="center" />
+        <b-card-header :title="recipe.title" style="font-size: 30px;font-weight: bold;" class="recipe-title">{{ recipe.title }}</b-card-header>
+        <b-card-img :src="recipe.image" class="center" />
       </div>
-      <div class="recipe-body">
+      <b-card-body class="recipe-body">
         <div class="wrapper">
           <div class="wrapped" v-if="$root.store.username">
             <b-button 
@@ -15,12 +15,12 @@
               @click="addToFavorite"
               >Add to Favorites ❤️</b-button
             >
-            <b-button v-else variant="outline-danger" style="font-size: 30px; width: 60%; border-width: 10px;" disabled>
+            <b-button v-else variant="outline-danger" style="font-weight: bold;" disabled>
               Favorite Recipe ❤️
             </b-button>
             
             <br />
-            <b-button v-if="recipe.isWatched" variant="outline-primary" style="font-size: 30px; width: 60%; border-width: 10px;" disabled
+            <b-button v-if="recipe.isWatched" variant="outline-primary" style="font-weight: bold; " disabled
               >You've seen this recipe before 👁</b-button
             >
           </div>
@@ -38,23 +38,23 @@
             </div>
             Ingredients:
             <ul>
-              <div v-if="recipe.ingredients">{{ recipe.ingredients }}</div>
-              <li v-for="(r) in recipe.extendedIngredients" >
+            <div v-if="recipe.extendedIngredients">
+              <li v-for="(r, index) in recipe.extendedIngredients" :key="index">
                 {{ r.name }}: {{ r.amount }} {{ r.unit }}
-              </li>
+              </li> </div>
+              <div v-if="recipe.ingredients">
+              <li v-for="(r, index) in recipe.ingredients" :key="index">
+                {{ r.name }}: {{ r.amount }} {{ r.unit }}
+              </li></div>
             </ul>
+          
           </div>
           <div class="wrapped">
             Instructions:
             <p v-html="recipe.instructions" />
           </div>
         </div>
-      </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
+      </b-card-body>
     </div>
   </b-card>
   </div>
@@ -70,53 +70,19 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
-
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + `/recipes/${this.$route.params.recipeId}`,
           { withCredentials: true },
           {recipeId: this.$route.params.recipeId},
         );
 
-        // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
-
-      // let {
-      //   analyzedInstructions,
-      //   instructions,
-      //   extendedIngredients,
-      //   aggregateLikes,
-      //   readyInMinutes,
-      //   image,
-      //   title
-      // } = response.data.recipe;
-      
-
-      // let _instructions = analyzedInstructions
-      //   .map((fstep) => {
-      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-      //     return fstep.steps;
-      //   })
-      //   .reduce((a, b) => [...a, ...b], []);
-
-      // let _recipe = {
-      //   instructions,
-      //   _instructions,
-      //   analyzedInstructions,
-      //   extendedIngredients,
-      //   aggregateLikes,
-      //   readyInMinutes,
-      //   image,
-      //   title
-      // };
-
       this.recipe = response.data;
     } catch (error) {
       console.log(error);
@@ -165,9 +131,7 @@ export default {
 .form-box {
   padding: 5px;
   border-radius: 20px;
-  width: 1300px;
-  height: 2000px; /* Add a fixed height for all forms */
-  font-size: 20px;
+  font-size: 15px;
   background-color: rgba(255, 255, 255, 0.5);
   margin-bottom: 20px;
   text-align: center;

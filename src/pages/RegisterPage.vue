@@ -22,7 +22,7 @@
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+          Username should contain letters only!
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -42,7 +42,7 @@
           firstName is required
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
-          firstName should contain only letters
+          firstName should contain letters only!
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -62,7 +62,7 @@
           lastName is required
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
-          lastName should contain only letters
+          lastName should contain letters only!
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -100,12 +100,11 @@
         </b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
           Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
         </b-form-text>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
-          Have length between 5-10 characters long
+          Password's length between 5-10 characters long
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -175,10 +174,6 @@
     >
       Register failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
-      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
-      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
   </b-form>
     </div>
   </div>
@@ -248,9 +243,7 @@ export default {
     }
   },
   mounted() {
-    // console.log("mounted");
     this.countries.push(...countries);
-    // console.log($v);
   },
   methods: {
     validateState(param) {
@@ -260,11 +253,7 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/Register",
-          //"http://localhost:3000/Register",
-          
-
           {
             username: this.form.username,
             firstname: this.form.firstName,
@@ -282,12 +271,10 @@ export default {
       }
     },
     onRegister() {
-      // console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
       this.Register();
     },
     onReset() {
@@ -320,7 +307,6 @@ body {
 }
 
 .form-box {
-  // border: 6px solid #ccc;
   padding: 20px;
   border-radius: 20px;
   width: 100%;

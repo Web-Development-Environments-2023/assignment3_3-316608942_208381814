@@ -89,20 +89,26 @@ export default {
 @import "@/scss/form-style.scss";
 
 #app {
-  font-family: fantasy;
+  
   color: #245953;
   min-height: 100vh;
+  font-weight: bold;
 }
 body {
   background-image: url('../src/assets/main.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: Papyrus;
+  font-weight: bold;
+  font-size:25px;
+  font-weight: 400;
 }
 
 .custom-navbar{
-  background-image: url('../src/assets/nav.jpg');
+  background-image: url('../src/assets/nav.png');
   background-repeat: no-repeat;
   background-size: cover;
+  font-weight: bold;
 
 
 }

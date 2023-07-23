@@ -1,6 +1,5 @@
 <template>
   <div id="main-container">
-    <!-- <h1 id="main-title" class="title">Welcome To The Main Page!</h1> -->
     <div class="row vertical-align" style="flex-wrap:nowrap;">
       <div class="col-xs-6 col-md-6">
         <RecipePreviewList
@@ -18,15 +17,10 @@
             >
               More
             </b-button>
-        <!-- <router-link v-if="!$root.store.username" to="/login" tag="button"
-      >You need to Login first!</router-link
-    > -->
       </div>
 
       <div class="col-xs-6 col-md-6">
         <Login v-if="!$root.store.username" />
-
-        <!-- {{ !$root.store.username }} -->
         <RecipePreviewList
           v-else
           title="Last Viewed Recipes"
@@ -35,11 +29,6 @@
 
         ></RecipePreviewList>
       </div>
-      <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
     </div>
   </div>
 </template>
@@ -89,11 +78,5 @@ body {
   background-image: url('../assets/main.jpg');
   background-repeat: no-repeat;
   background-size: cover;}
-// .RandomRecipes {
-//   margin: 10px 0;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
 </style>
 

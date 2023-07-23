@@ -140,13 +140,6 @@
           vegan: false,
           vegetarian: false,
           glutenFree: false,
-        //   selected: [], // Must be an array reference!
-        //   options: [
-        //     { text: 'Vegan', value: 'vegan' },
-        //     { text: 'Vegetarian', value: 'vegetarian' },
-        //     { text: 'Gluten Free', value: 'gluten Free' },
-        //     ],
-        // 
         },
         show: true
       };
@@ -203,12 +196,7 @@
         this.form.checked.vegan=false;
         this.form.vegetarian=false;
         this.form.glutenFree=false;
-  
-        // // Trick to reset/clear native browser form validation state
-        // this.show = false;
-        // this.$nextTick(() => {
-        //   this.show = true;
-        // });
+
       },
     },
   };

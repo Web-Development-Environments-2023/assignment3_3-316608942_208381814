@@ -119,12 +119,6 @@ import intolerances from "../assets/intolerances";
       cuisines: [{ value: null, text: "", disabled: true }],
       diets: [{ value: null, text: "", disabled: true }],
       intolerances: [{ value: null, text: "", disabled: true }],
-      // amountOptions: [
-      //   // options
-      //   { text: "5", value: 5 },
-      //   { text: "10", value: 10 },
-      //   { text: "15", value: 15 },
-      // ],
       sortOptions: [
         { value: "", text: "Sort By", disabled: true },
         { value: "time", text: "Time" },
@@ -182,7 +176,6 @@ import intolerances from "../assets/intolerances";
           }
         });
         let response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/recipes/searchRecipe",
           {
             params: paramsList,
@@ -200,7 +193,6 @@ import intolerances from "../assets/intolerances";
       }
     },
     onSearch() {
-      // console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -247,17 +239,14 @@ body {
   background-size: cover;
 }
 
-
-
 #lastSearchP {
   border-style: solid;
   border-width: medium;
   border-radius: 20px;
-  background-color: #720026;
+  background-color: burlywood;
   max-width: 500px;
 }
 .form-box {
-  // border: 6px solid #ccc;
   border-radius: 20px;
   width: 100%;
   align-items: center;

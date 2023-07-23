@@ -104,7 +104,6 @@ export default {
 }
 
 .form-box {
-  // border: 6px solid #ccc;
   padding: 20px;
   border-radius: 20px;
   width: 100%;
