@@ -23,7 +23,14 @@ export default {
     title: {
       type: String,
       required: true
-    }
+    },
+    state: {
+      type: String,
+      required: true,
+    },
+    recipesData: {
+      type: Array,
+    },
   },
   data() {
     return {
@@ -36,16 +43,49 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + "/recipes/random",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
-
-        // console.log(response);
-        const recipes = response.data.recipes;
+        let response;
+        switch (this._props.state) {
+          case "random":
+          response = await this.axios.get(
+             this.$root.store.server_domain + "/recipes/random",
+            { withCredentials: true }
+          );
+            break;
+          case "lastWatched":
+            response = await this.axios.get(
+              this.$root.store.server_domain + "/users/getlastWatches",
+              { withCredentials: true }
+            );
+            break;
+          case "favorite":
+            response = await this.axios.get(
+              this.$root.store.server_domain + "/users/favorites",
+              { withCredentials: true }
+            );
+            break;
+          case "PersonalRecipe":
+            response = await this.axios.get(
+              this.$root.store.server_domain + "/users/myRecipes",
+              { withCredentials: true }
+            );
+            break;
+          case "search":
+            this.recipes.push(...this.recipesData);
+            return;
+            break;
+          case "FamilyRecipe":
+            response = await this.axios.get(
+              this.$root.store.server_domain + "/users/family",
+              { withCredentials: true }
+            );
+            break;
+            default:
+              return;
+        }
+        
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

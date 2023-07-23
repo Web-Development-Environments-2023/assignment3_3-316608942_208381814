@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
+ <div class="container">
     <h1 class="title">Register</h1>
-    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+    <div class="form-box">
+      <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
       <b-form-group
         id="input-group-username"
         label-cols-sm="3"
@@ -21,7 +22,47 @@
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+          Username should contain letters only!
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-firstName"
+        label-cols-sm="3"
+        label="firstName:"
+        label-for="firstName"
+      >
+        <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          firstName is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
+          firstName should contain letters only!
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-lastName"
+        label-cols-sm="3"
+        label="lastName:"
+        label-for="lastName"
+      >
+        <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"
+          :state="validateState('lastName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required">
+          lastName is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
+          lastName should contain letters only!
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -59,12 +100,11 @@
         </b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
           Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
         </b-form-text>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
-          Have length between 5-10 characters long
+          Password's length between 5-10 characters long
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -90,11 +130,33 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="text"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          lastname is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.email.alpha">
+          email should be on email format
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-button type="reset" variant="danger" style="width:100px;"
+        class="ml-5 w-75"
+        >Reset</b-button>
       <b-button
         type="submit"
         variant="primary"
-        style="width:250px;"
+        style="width:100px;"
         class="ml-5 w-75"
         >Register</b-button
       >
@@ -102,7 +164,7 @@
         You have an account already?
         <router-link to="login"> Log in here</router-link>
       </div>
-    </b-form>
+
     <b-alert
       class="mt-2"
       v-if="form.submitError"
@@ -112,10 +174,8 @@
     >
       Register failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
-      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
-      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
+  </b-form>
+    </div>
   </div>
 </template>
 
@@ -154,25 +214,36 @@ export default {
       username: {
         required,
         length: (u) => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        alpha: (u) => /^[A-Za-z]+$/.test(u)
+      },
+      firstName: {
+        required,
+        alpha: (u) => /^[A-Za-z]+$/.test(u)
+      },
+      lastName: {
+        required,
+        alpha: (u) => /^[A-Za-z]+$/.test(u)
       },
       country: {
         required
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        specialChar: (p) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(p)
       },
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
-      }
+      },
+      email: {
+        required,
+        emailFormat: (e) => /\S+@\S+\.\S+/.test(e)
+      },
     }
   },
   mounted() {
-    // console.log("mounted");
     this.countries.push(...countries);
-    // console.log($v);
   },
   methods: {
     validateState(param) {
@@ -182,28 +253,28 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/Register",
-
           {
             username: this.form.username,
-            password: this.form.password
+            firstname: this.form.firstName,
+            lastname: this.form.lastName,
+            password: this.form.password,
+            country: this.form.country,
+            email: this.form.email,
           }
         );
+        console.log(response);
         this.$router.push("/login");
-        // console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onRegister() {
-      // console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
       this.Register();
     },
     onReset() {
@@ -223,8 +294,23 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+  
 }
+body {
+  background-image: url('../assets/register.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-box {
+  padding: 20px;
+  border-radius: 20px;
+  width: 100%;
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.5);}
 </style>
+
